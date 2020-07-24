@@ -35,7 +35,16 @@ function Prompt() {
   _.defaultsDeep(this.opt, {
     date: {
       max: null,
-      min: null
+      min: null,
+      days: {
+        interval: 1
+      },
+      months: {
+        interval: 1
+      },
+      years: {
+        interval: 1
+      }
     },
     time: {
       max: null,
@@ -126,7 +135,7 @@ function Prompt() {
       case 'dddd':
         selection.elements.push({
           add: diff => {
-            selection.date = validateDate(selection.date.addDays(diff));
+            selection.date = validateDate(selection.date.addDays(diff * opt.date.days.interval));
           },
           set: val => {
             selection.date = validateDate(selection.date.set({ day: val }));
@@ -139,7 +148,7 @@ function Prompt() {
       case 'mmmm':
         selection.elements.push({
           add: diff => {
-            selection.date = validateDate(selection.date.addMonths(diff));
+            selection.date = validateDate(selection.date.addMonths(diff * opt.date.month.interval));
           },
           set: val => {
             if (val.toString().length > 2) {
@@ -152,7 +161,7 @@ function Prompt() {
       case 'yy':
         selection.elements.push({
           add: diff => {
-            selection.date = validateDate(selection.date.addYears(diff));
+            selection.date = validateDate(selection.date.addYears(diff * opt.date.years.interval));
           },
           set: val => {
             if (val.toString().length > 2) {
@@ -165,7 +174,7 @@ function Prompt() {
       case 'yyyy':
         selection.elements.push({
           add: diff => {
-            selection.date = validateDate(selection.date.addYears(diff));
+            selection.date = validateDate(selection.date.addYears(diff * opt.date.years.interval));
           },
           set: val => {
             if (val.toString().length > 4) {
